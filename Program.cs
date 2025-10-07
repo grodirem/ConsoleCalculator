@@ -12,11 +12,7 @@ internal class Program
 
             var choice = GetUserChoice();
 
-            if (choice == "2")
-            {
-                Console.WriteLine("Thank you for using my calculator!");
-                break;
-            }
+            ExitIfChosen(choice);
 
             Console.Clear();
         }
@@ -32,13 +28,23 @@ internal class Program
         PrintHeaderAfterCalculations();
     }
 
+    private static void ExitIfChosen(string choice)
+    {
+        const string exit = "2";
+        if (choice == exit)
+        {
+            Console.WriteLine("Thank you for using my calculator!");
+            Environment.Exit(0);
+        }
+    }
+
     private static string GetUserChoice()
     {
         string? choice;
 
         while (true)
         {
-            Console.Write("Enter your choice: ");
+            Console.Write("Enter your choice (1 or 2): ");
             choice = Console.ReadLine()?.Trim();
 
             if (choice == "1" || choice == "2")
