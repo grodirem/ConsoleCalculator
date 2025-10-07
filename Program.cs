@@ -3,6 +3,8 @@
 internal class Program
 {
     private static readonly string[] validOperations = { "+", "-", "*", "/" };
+    private const string calculateAgain = "1";
+    private const string exit = "2";
 
     static void Main(string[] args)
     {
@@ -12,14 +14,13 @@ internal class Program
 
             var choice = GetUserChoice();
 
-            ExitIfChosen(choice);
-
-            Console.Clear();
+            if (IsExitChosen(choice)) break;
         }
     }
 
     private static void RunCalculator()
     {
+        Console.Clear();
         var firstNumber = GetNumber("Enter the first number: ");
         var operation = GetOperation();
         var secondNumber = GetNumber("Enter the second number: ");
@@ -28,14 +29,15 @@ internal class Program
         PrintHeaderAfterCalculations();
     }
 
-    private static void ExitIfChosen(string choice)
+    private static bool IsExitChosen(string choice)
     {
-        const string exit = "2";
         if (choice == exit)
         {
             Console.WriteLine("Thank you for using my calculator!");
-            Environment.Exit(0);
+            return true;
         }
+
+        return false;
     }
 
     private static string GetUserChoice()
@@ -47,7 +49,8 @@ internal class Program
             Console.Write("Enter your choice (1 or 2): ");
             choice = Console.ReadLine()?.Trim();
 
-            if (choice == "1" || choice == "2")
+
+            if (choice == calculateAgain || choice == exit)
             {
                 return choice;
             }
